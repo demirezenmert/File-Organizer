@@ -1,0 +1,19 @@
+------
+Access Download Folder- Search
+
+Get items on folder 
+
+Find listener for download folder  = Watchdog
+
+Create Folder for each items (img, videos..)
+
+Seperate files 
+Move items to spesific folder 
+
+----
+Second Level
+
+Create config File
+For future able to add easily new extention file
+Make it easier to adjust Main Folder destination. Without touching main file
+
