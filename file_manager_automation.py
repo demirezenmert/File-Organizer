@@ -37,8 +37,14 @@ audio_extensions = [".m4a", ".flac", "mp3", ".wav", ".wma", ".aac"]
 document_extensions = [".doc", ".docx", ".odt",".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
 
 def makeUnique(dest, fileName):
-    pass
-
+    #seperating name and extention from file name
+    name, extention = splitext(fileName)
+    fileCounter = 1
+    #if file exists in destination folder, adds number to the end of the file name
+    while exists(f'{dest}/{name}'):
+        fileName = f'{name}({str(fileCounter)}){extention}'
+        fileCounter += 1
+    return fileName
 def moveFile(dest, entry, fileName):
     if exists(f'{dest}/{fileName}'):
         makeUnique(dest, fileName=fileName)
