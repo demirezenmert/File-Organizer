@@ -1,16 +1,26 @@
 #! /usr/bin/env python3 
 
+# try:
+#     from watchdog.observers import Observer
+#     from watchdog.events import FileSystemEventHandler
+
+
 
 # Module
 
 import os
-import watchdog
 from time import sleep
+from os.path import exists, join, splitext
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+from shutil import move 
+# you can use os.rename() but doesnt support different disk drives.
+# from os import rename
 
 
 #Directories
 
-sourceDirectory = '/Users/mertdemirezen/Documents/Projects/FileManager'
+srcDirectory = '/Users/mertdemirezen/Documents/Projects/FileManager'
 
 
 
@@ -26,7 +36,27 @@ audio_extensions = [".m4a", ".flac", "mp3", ".wav", ".wma", ".aac"]
 # supported Document types
 document_extensions = [".doc", ".docx", ".odt",".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
 
+def makeUnique(dest, fileName):
+    pass
 
-with os.scandir(sourceDirectory) as entries :
-    for entry in entries:
-        print(entry)
+def moveFile(dest, entry, fileName):
+    if exists(f'{dest}/{fileName}'):
+        makeUnique(dest, fileName=fileName)
+
+
+
+class FileManager(FileSystemEventHandler):
+
+    def on_modified(self, event):
+
+        with os.scandir(srcDirectory) as entries :
+            for entry in entries:
+                fileName = entry.name
+                
+                #Checking is image?
+                self.checkImageFiles(entry, fileName)
+
+    def checkImageFiles(self, entry, fileName):
+        for image_ext in image_extensions:
+            if fileName.endswith(image_ext) or fileName.endswith(image_ext.upper()):
+                moveFile(destinationDirImage, entry, fileName)
