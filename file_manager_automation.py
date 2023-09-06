@@ -1,8 +1,11 @@
 #! /usr/bin/env python3 
 
-# try:
-#     from watchdog.observers import Observer
-#     from watchdog.events import FileSystemEventHandler
+try:
+    import watchdog
+except ModuleNotFoundError:
+    from subprocess import call
+    call('pip install watchdog',shell=True)
+
 
 
 
