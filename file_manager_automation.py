@@ -27,14 +27,18 @@ import logging
 
 #Directories
 
-srcDirectory = '/Users/mertdemirezen/Documents/Projects/FileManager'
+# srcDirectory = '/Users/mertdemirezen/Documents/Projects/FileManager'
+srcDirectory = '/Users/mertdemirezen/Desktop/FakeDownloads'
+
 picDir = 'Pictures'
 videoDir = 'Videos'
 musicDir = 'Musics'
 docDir = 'Documents'
 sfxDir = 'Sfx'
+Torrent = 'Torrents'
+StlFile = '3D Printer'
 
-source = [picDir,videoDir,musicDir,docDir,sfxDir]
+source = [picDir,videoDir,musicDir,docDir,sfxDir,Torrent,StlFile]
 
 
 # supported image types
@@ -47,6 +51,9 @@ video_extensions = [".webm", ".mpg", ".mp2", ".mpeg", ".mpe", ".mpv", ".ogg",
 audio_extensions = [".m4a", ".flac", "mp3", ".wav", ".wma", ".aac"]
 # supported Document types
 document_extensions = [".doc", ".docx", ".odt",".pdf", ".xls", ".xlsx", ".ppt", ".pptx","txt"]
+
+# supported 3D types
+printer3d_extensions = [".stl", ".f3d"]
 
 
 
@@ -70,6 +77,8 @@ class FileManager(FileSystemEventHandler):
                 self.checkAudioFiles(entry,fileName)
                 self.checkVideoFiles(fileName)
                 self.checkDocumentFiles(entry,fileName)
+                self.checkTorrentFiles(entry,fileName)
+                self.check3dFiles(entry,fileName)
 
 
 
@@ -108,7 +117,23 @@ class FileManager(FileSystemEventHandler):
                 logging.info(f"Moved document file: {name}")
                 sleep(0.2)
 
-
+    def checkTorrentFiles(self, entry, name):  # * Checks all Torrent Files
+        extention = '.torrent'
+        if name.endswith(extention) or name.endswith(extention.upper()):
+            self.moveFile(Torrent,name)
+            logging.info(f"Moved Torrent file: {name}")
+            sleep(0.2)
+    
+    
+    
+    
+    def check3dFiles(self,entry, name):  
+        for printer in printer3d_extensions:
+            if name.endswith(printer) or name.endswith(printer.upper()):
+                self.moveFile(StlFile,name)
+                sleep(0.2)
+                logging.info(f"Moved Printer file: {name}")
+    
 
 
     def isFoldersExist(self):
