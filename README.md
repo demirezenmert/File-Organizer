@@ -2,7 +2,7 @@
 # File Organizer
 
 **File Organizer** is a Python script that helps you automatically organize files in a directory by moving them to specific subdirectories based on their file types. It uses the Watchdog library to monitor changes in the specified directory and performs file sorting accordingly.
-
+Youtube: https://youtu.be/g6kDeL5Xy18
 ## Features
 
 - Organize files into the following categories:
